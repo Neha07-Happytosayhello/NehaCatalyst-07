@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ReBorn Fashion+</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-form h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .form-group input.error {
+            border-color: #dc3545;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background: #0056b3;
+        }
+        
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .demo-credentials {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .demo-credentials strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>ReBorn Fashion+</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">Login</button>
+            </form>
+            
+            <div class="demo-credentials">
+                <strong>Demo Credentials:</strong><br>
+                Username: <strong>admin</strong><br>
+                Password: <strong>password123</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Login form handling
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Validation functions
+        function validateUsername(username) {
+            if (username.length < 3) {
+                return 'Username must be at least 3 characters long';
+            }
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                return 'Username can only contain letters, numbers, and underscores';
+            }
+            return '';
+        }
+
+        function validatePassword(password) {
+            if (password.length < 6) {
+                return 'Password must be at least 6 characters long';
+            }
+            return '';
+        }
+
+        // Real-time validation
+        usernameInput.addEventListener('input', function() {
+            const error = validateUsername(this.value);
+            const errorElement = document.getElementById('usernameError');
+            
+            if (error) {
+                this.classList.add('error');
+                errorElement.textContent = error;
+                errorElement.style.display = 'block';
+            } else {
+                this.classList.remove('error');
+                errorElement.style.display = 'none';
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            const error = validatePassword(this.value);
+            const errorElement = document.getElementById('passwordError');
+            
+            if (error) {
+                this.classList.add('error');
+                errorElement.textContent = error;
+                errorElement.style.display = 'block';
+            } else {
+                this.classList.remove('error');
+                errorElement.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Validate inputs
+            const usernameError = validateUsername(username);
+            const passwordError = validatePassword(password);
+            
+            if (usernameError || passwordError) {
+                if (usernameError) {
+                    usernameInput.classList.add('error');
+                    document.getElementById('usernameError').textContent = usernameError;
+                    document.getElementById('usernameError').style.display = 'block';
+                }
+                if (passwordError) {
+                    passwordInput.classList.add('error');
+                    document.getElementById('passwordError').textContent = passwordError;
+                    document.getElementById('passwordError').style.display = 'block';
+                }
+                return;
+            }
+            
+            // Disable button and show loading state
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+            
+            // Simulate login process
+            setTimeout(() => {
+                // Check credentials (demo: admin/password123)
+                if (username === 'admin' && password === 'password123') {
+                    // Store session data
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('loginTime', new Date().toISOString());
+                    
+                    // Redirect to index
+                    window.location.href = 'index.html';
+                } else {
+                    // Show error
+                    alert('Invalid username or password. Please try again.');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Login';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

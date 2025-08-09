@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ReBorn Fashion+</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        
+        /* Auth Button */
+        .auth-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+        
+        .auth-button:hover {
+            background: #0056b3;
+        }
+        
+        .auth-button.logout {
+            background: #dc3545;
+        }
+        
+        .auth-button.logout:hover {
+            background: #c82333;
+        }
+        
+        /* Cart Badge */
+        .cart-count {
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        /* About Content Enhancements */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .about-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .mission-card,
+        .vision-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mission-card h3,
+        .vision-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+        
+        .team-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .team-member h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        
+        .team-member p {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        /* ScrollSpy Navigation */
+        .scrollspy-nav {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .scrollspy-nav h4 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .scrollspy-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .scrollspy-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .scrollspy-nav a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .scrollspy-nav a:hover,
+        .scrollspy-nav a.active {
+            color: #007bff;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mission-vision {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .scrollspy-nav {
+                position: static;
+                margin: 20px 0;
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">ReBorn Fashion+</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="shop.html">Shop <span id="cartCount" class="cart-count" style="display: none;">0</span></a>
+                <a href="how-it-works.html">How It Works</a>
+                <a href="reborn-biz.html">B2B</a>
+                <a href="contact.html">Contact</a>
+                <button id="authButton" class="auth-button">Login</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ScrollSpy Navigation -->
+    <nav class="scrollspy-nav">
+        <h4>Quick Navigation</h4>
+        <ul>
+            <li><a href="#about" class="scrollspy-link">About Us</a></li>
+            <li><a href="#mission" class="scrollspy-link">Mission</a></li>
+            <li><a href="#vision" class="scrollspy-link">Vision</a></li>
+            <li><a href="#team" class="scrollspy-link">Our Team</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h1>About ReBorn Fashion+</h1>
+                <p>At ReBorn Fashion+, we believe in giving clothes a second life. Our mission is to reduce textile waste by transforming pre-loved garments into unique, sustainable fashion pieces that tell a story of environmental consciousness and style.</p>
+                
+                <p>Founded in 2020, we started as a small team of passionate environmentalists and fashion enthusiasts who saw the devastating impact of fast fashion on our planet. Every year, millions of tons of clothing end up in landfills, contributing to pollution and climate change. We decided to be part of the solution.</p>
+                
+                <div class="mission-vision">
+                    <div id="mission" class="mission-card">
+                        <h3>Our Mission</h3>
+                        <p>To revolutionize the fashion industry by creating a circular economy where every garment has multiple lives, reducing waste and promoting sustainable consumption patterns.</p>
+                    </div>
+                    
+                    <div id="vision" class="vision-card">
+                        <h3>Our Vision</h3>
+                        <p>A world where fashion is circular, eco-conscious, and accessible to all. We envision a future where sustainable fashion is the norm, not the exception.</p>
+                    </div>
+                </div>
+                
+                <p>Our innovative process involves collecting pre-loved garments from individuals and businesses, carefully sorting and cleaning them, and then transforming them into unique pieces through creative upcycling techniques. Each item in our collection carries a story of sustainability and conscious consumption.</p>
+                
+                <p>We partner with innovative designers and recycling experts to create collections that inspire. Our team is a passionate group of sustainability advocates, designers, and logistics experts working together to redefine the fashion industry.</p>
+                
+                <div id="team" class="team-section">
+                    <h2>Meet Our Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <h4>Neha Kumari</h4>
+                            <p>Founder & CEO</p>
+                            <p>Environmental activist with 10+ years in sustainable fashion</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Dr.Vinaya Satyanarayan</h4>
+                            <p>Creative Director</p>
+                            <p>Award-winning designer specializing in upcycled fashion</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Naincy Kumari</h4>
+                            <p>Operations Manager</p>
+                            <p>Expert in circular economy and supply chain management</p>
+                        </div>
+                        <div class="team-member">
+                            <h4>Anirban Panda</h4>
+                            <p>Technology Lead</p>
+                            <p>Building digital solutions for sustainable fashion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+            </div>
+            <p>© 2025 ReBorn Fashion+. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Session Management
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            updateCartCount();
+            initScrollSpy();
+            initSmoothScroll();
+        });
+
+        // Check authentication status
+        function checkAuthStatus() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const authButton = document.getElementById('authButton');
+            
+            if (isLoggedIn === 'true') {
+                const username = sessionStorage.getItem('username') || 'User';
+                authButton.classList.add('logout');
+                authButton.textContent = 'Logout';
+                authButton.onclick = logout;
+            } else {
+                authButton.textContent = 'Login';
+                authButton.classList.remove('logout');
+                authButton.onclick = () => window.location.href = 'login.html';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.clear();
+            window.location.reload();
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+            const cartCount = document.getElementById('cartCount');
+            
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = 'inline-flex';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+
+        // ScrollSpy Implementation
+        function initScrollSpy() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.scrollspy-link');
+            
+            function updateActiveLink() {
+                const scrollPos = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Update on scroll
+            window.addEventListener('scroll', updateActiveLink);
+            
+            // Initial call
+            updateActiveLink();
+        }
+
+        // Smooth Scroll
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Add scroll-based animations
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.about-section');
+            const speed = scrolled * 0.3;
+            
+            if (parallax) {
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
