@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReBorn Fashion+ - Circular Fashion for a Sustainable Future</title>
+    <link rel="shortcut icon" href="assets/Favicon.jpg"> 
     <link rel="stylesheet" href="css/styles.css">
     <style>
         /* Testimonial Carousel Styles */
@@ -113,11 +114,32 @@
             font-weight: bold;
             margin-left: 5px;
         }
+        .font-size-controls {
+         display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .font-control {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 4px 10px;
+    font-size: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+    }
+    .font-control:hover {
+    background: #e9ecef;    
+    }
+
     </style>
 </head>
 <body>
     <!-- Navigation Header -->
     <header class="header">
+        
         <div class="container">
             <div class="logo">ReBorn Fashion+</div>
             <nav class="nav-links">
@@ -129,7 +151,14 @@
                 <a href="contact.html">Contact</a>
                 <button id="authButton" class="auth-button">Login</button>
             </nav>
+            <div class="font-size-controls" style="float: right; margin-left: 25px;">
+            <button class="font-control" id="decrease-font">A-</button>
+            <button class="font-control" id="reset-font">A</button>
+            <button class="font-control" id="increase-font">A+</button>
+            </div>
         </div>
+
+                
     </header>
 
     <!-- Hero Section -->
@@ -251,6 +280,74 @@
     </footer>
 
     <script>
+        // Font Size Control Logic
+        const minFontSize = 14; // px
+        const maxFontSize = 22; // px
+        const defaultFontSize = 16; // px
+
+        function setFontSize(size) {
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
+
+        function getStoredFontSize() {
+            return parseInt(localStorage.getItem('fontSize')) || defaultFontSize;
+        }
+
+        // When page loads, set font size
+        document.addEventListener('DOMContentLoaded', function() {
+            setFontSize(getStoredFontSize());
+
+            document.getElementById('increase-font').onclick = function() {
+                let size = getStoredFontSize() + 2;
+                if (size > maxFontSize) size = maxFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('decrease-font').onclick = function() {
+                let size = getStoredFontSize() - 2;
+                if (size < minFontSize) size = minFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('reset-font').onclick = function() {
+                setFontSize(defaultFontSize);
+            };
+        });
+
+        // Enhanced keyboard shortcuts for philosophy page
+        document.addEventListener('keydown', (e) => {
+            // Shift + R to navigate to philosophy page (works from any page)
+            if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                if (!window.location.pathname.includes('philosophy.html')) {
+                    window.location.href = 'philosophy.html';
+                } else {
+                    // If already on philosophy page, show a notification
+                    showNotification('Already on Philosophy page!', 'info');
+                }
+            }
+            
+            // Ctrl/Cmd + K to focus search (if search exists)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            
+            // Escape key to close any modals or overlays
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+        });
         // Session Management
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();

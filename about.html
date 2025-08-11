@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About ReBorn Fashion+</title>
+    <link rel="shortcut icon" href="assets/Favicon.jpg">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         
@@ -110,12 +111,12 @@
         .team-member h4 {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #007bff;
+            color: #ff8000;
         }
         
         .team-member p {
             font-size: 1rem;
-            color: #666;
+            color:black;
         }
         
         /* ScrollSpy Navigation */
@@ -174,6 +175,81 @@
             }
             
         }
+        .team-container {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         gap: 20px;
+         padding: 20px;
+        }
+
+    .team-member {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .team-member h4 {
+    color: orange;
+    margin-bottom: 10px;
+    }
+
+    .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 3px solid white;
+    }
+
+    .team-member p {
+    margin: 5px 0;
+    }
+     .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #0077b5; /* LinkedIn blue */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    }
+
+    .linkedin-link:hover {
+    background-color: #005a87;
+    }
+
+    .linkedin-icon {
+    width: 18px;
+    height: 18px;
+    }           
+    .font-size-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.font-control {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 4px 10px;
+    font-size: 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.font-control:hover {
+    background: #e9ecef;
+}
+     
     </style>
 </head>
 <body>
@@ -190,6 +266,11 @@
                 <a href="contact.html">Contact</a>
                 <button id="authButton" class="auth-button">Login</button>
             </nav>
+            <div class="font-size-controls" style="float: right; margin-left: 25px;">
+            <button class="font-control" id="decrease-font">A-</button>
+            <button class="font-control" id="reset-font">A</button>
+            <button class="font-control" id="increase-font">A+</button>
+            </div>
         </div>
     </header>
 
@@ -234,23 +315,39 @@
                     <div class="team-grid">
                         <div class="team-member">
                             <h4>Neha Kumari</h4>
+                             <img src="assets/Neha.jpg" alt="Neha Kumari" class="profile-pic">
                             <p>Founder & CEO</p>
                             <p>Environmental activist with 10+ years in sustainable fashion</p>
-                        </div>
-                        <div class="team-member">
-                            <h4>Dr.Vinaya Satyanarayan</h4>
-                            <p>Creative Director</p>
-                            <p>Award-winning designer specializing in upcycled fashion</p>
+                            <a href="https://www.linkedin.com/in/neha-kumari-39930a287?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
                         </div>
                         <div class="team-member">
                             <h4>Naincy Kumari</h4>
+                            <img src="assets/Nain.jpg" alt="Neha Kumari" class="profile-pic">
+                            <p>Creative Director</p>
+                            <p>Award-winning designer specializing in upcycled fashion</p>
+                             <a href="https://www.linkedin.com/in/naincy-k-586a0a16b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
+                        </div>
+                        <div class="team-member">
+                            <h4>Dr.Vinaya Sathyanarayana</h4>
+                            <img src="assets/DR.jpg" alt="Neha Kumari" class="profile-pic">
                             <p>Operations Manager</p>
                             <p>Expert in circular economy and supply chain management</p>
+                             <a href="https://www.linkedin.com/in/vinaya?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
                         </div>
                         <div class="team-member">
                             <h4>Anirban Panda</h4>
+                            <img src="assets/Anir.jpg" alt="Neha Kumari" class="profile-pic">
                             <p>Technology Lead</p>
                             <p>Building digital solutions for sustainable fashion</p>
+                             <a href="https://www.linkedin.com/in/anirban-panda-33045a146?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -272,6 +369,74 @@
     </footer>
 
     <script>
+                // Font Size Control Logic
+        const minFontSize = 14; // px
+        const maxFontSize = 22; // px
+        const defaultFontSize = 16; // px
+
+        function setFontSize(size) {
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
+
+        function getStoredFontSize() {
+            return parseInt(localStorage.getItem('fontSize')) || defaultFontSize;
+        }
+
+        // When page loads, set font size
+        document.addEventListener('DOMContentLoaded', function() {
+            setFontSize(getStoredFontSize());
+
+            document.getElementById('increase-font').onclick = function() {
+                let size = getStoredFontSize() + 2;
+                if (size > maxFontSize) size = maxFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('decrease-font').onclick = function() {
+                let size = getStoredFontSize() - 2;
+                if (size < minFontSize) size = minFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('reset-font').onclick = function() {
+                setFontSize(defaultFontSize);
+            };
+        });
+
+        //"js/script_about.js"
+        document.addEventListener('keydown', (e) => {
+            // Shift + R to navigate to philosophy page (works from any page)
+            if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                if (!window.location.pathname.includes('philosophy.html')) {
+                    window.location.href = 'philosophy.html';
+                } else {
+                    // If already on philosophy page, show a notification
+                    showNotification('Already on Philosophy page!', 'info');
+                }
+            }
+            
+            // Ctrl/Cmd + K to focus search (if search exists)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            
+            // Escape key to close any modals or overlays
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+        });
         // Session Management
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
@@ -279,7 +444,7 @@
             initScrollSpy();
             initSmoothScroll();
         });
-
+        
         // Check authentication status
         function checkAuthStatus() {
             const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -296,13 +461,13 @@
                 authButton.onclick = () => window.location.href = 'login.html';
             }
         }
-
+        
         // Logout function
         function logout() {
             sessionStorage.clear();
             window.location.reload();
         }
-
+        
         // Update cart count
         function updateCartCount() {
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
@@ -315,7 +480,7 @@
                 cartCount.style.display = 'none';
             }
         }
-
+        
         // ScrollSpy Implementation
         function initScrollSpy() {
             const sections = document.querySelectorAll('section[id]');
@@ -346,7 +511,7 @@
             // Initial call
             updateActiveLink();
         }
-
+        
         // Smooth Scroll
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -362,7 +527,7 @@
                 });
             });
         }
-
+        
         // Add scroll-based animations
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;

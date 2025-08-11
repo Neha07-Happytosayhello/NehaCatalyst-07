@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How ReBorn Fashion+ Works</title>
+    <link rel="shortcut icon" href="assets/Favicon.jpg">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         /* Auth Button */
@@ -148,10 +149,30 @@
             color: #666;
         }
         
-        .form-step.active .step-label {
-            color: #007bff;
-            font-weight: bold;
-        }
+                .form-step.active .step-label {
+                    color: #007bff;
+                    font-weight: bold;
+                }
+                .font-size-controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+             }
+
+    .font-control {
+        background: #fff;
+        border: 1px solid #ccc;
+        color: #333;
+        padding: 4px 10px;
+        font-size: 15px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .font-control:hover {
+        background: #e9ecef;
+    }
+
     </style>
 </head>
 <body>
@@ -168,8 +189,15 @@
                 <a href="contact.html">Contact</a>
                 <button id="authButton" class="auth-button">Login</button>
             </nav>
-        </div>
-    </header>
+                <div class="font-size-controls" style="float: right; margin-left: 25px;">
+                <button class="font-control" id="decrease-font">A-</button>
+                <button class="font-control" id="reset-font">A</button>
+                <button class="font-control" id="increase-font">A+</button>
+                </div>
+
+            </div>
+            </div>
+            </header>
 
     <!-- How It Works Section -->
     <section class="how-it-works-section">
@@ -201,24 +229,27 @@
                 </div>
             </div>
             
-            <a href="#sell-form" class="sell-button">Sell Your Clothes</a>
+            <button class="sell-button" id="sellButton">Sell Your Clothes</button>
 
-            <!-- Sell Clothes Form -->
-            <div id="sell-form" class="sell-form-overlay">
-                <div class="sell-form-container">
-                    <h2>Sell Your Clothes</h2>
+            <!-- Sell Clothes Modal -->
+            <div id="sellModal" class="modal-overlay" style="display: none;">
+                <div class="modal-content sell-form-container">
+                    <div class="modal-header">
+                        <h2>Sell Your Clothes</h2>
+                        <button class="close-btn" id="closeModal">&times;</button>
+                    </div>
                     
                     <!-- Form Progress -->
                     <div class="form-progress">
-                        <div class="form-step active">
+                        <div class="form-step active" data-step="1">
                             <div class="step-number">1</div>
                             <div class="step-label">Upload Image</div>
                         </div>
-                        <div class="form-step">
+                        <div class="form-step" data-step="2">
                             <div class="step-number">2</div>
                             <div class="step-label">Add Details</div>
                         </div>
-                        <div class="form-step">
+                        <div class="form-step" data-step="3">
                             <div class="step-number">3</div>
                             <div class="step-label">Submit</div>
                         </div>
@@ -226,43 +257,91 @@
 
                     <form id="sellForm">
                         <div class="form-step-content" id="step1">
-                            <label for="clothing-image">Upload Clothing Image</label>
-                            <input type="file" id="clothing-image" name="clothing-image" accept="image/*" required>
-                            <p class="help-text">Please upload clear images of your clothing items</p>
+                            <div class="upload-section">
+                                <label for="clothing-image">Upload Clothing Image</label>
+                                <div class="file-upload-area" id="fileUploadArea">
+                                    <input type="file" id="clothing-image" name="clothing-image" accept="image/*" required>
+                                    <div class="upload-placeholder">
+                                        <span class="upload-icon">📷</span>
+                                        <p>Click to upload or drag and drop</p>
+                                        <p class="upload-hint">Supports: JPG, PNG, GIF (Max 5MB)</p>
+                                    </div>
+                                </div>
+                                <div id="imagePreview" class="image-preview" style="display: none;">
+                                    <img id="previewImg" src="" alt="Preview">
+                                    <button type="button" id="removeImage" class="remove-btn">Remove</button>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="form-step-content" id="step2" style="display: none;">
-                            <label for="clothing-description">Item Description</label>
-                            <textarea id="clothing-description" name="clothing-description" placeholder="Describe your clothing items (material, condition, etc.)" required></textarea>
+                            <div class="form-group">
+                                <label for="contact-name">Full Name *</label>
+                                <input type="text" id="contact-name" name="contact-name" placeholder="Enter your full name" required>
+                            </div>
                             
-                            <label for="pickup-address">Pickup Address</label>
-                            <textarea id="pickup-address" name="pickup-address" placeholder="Enter your address for pickup" required></textarea>
+                            <div class="form-group">
+                                <label for="contact-phone">Phone Number *</label>
+                                <input type="tel" id="contact-phone" name="contact-phone" placeholder="Enter your phone number" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">Email Address *</label>
+                                <input type="email" id="contact-email" name="contact-email" placeholder="Enter your email address" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="clothing-description">Item Description *</label>
+                                <textarea id="clothing-description" name="clothing-description" placeholder="Describe your clothing items (material, condition, quantity, etc.)" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pickup-address">Pickup Address *</label>
+                                <textarea id="pickup-address" name="pickup-address" placeholder="Enter your complete address for pickup" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pickup-preferences">Pickup Preferences</label>
+                                <select id="pickup-preferences" name="pickup-preferences">
+                                    <option value="">Select preferred pickup time</option>
+                                    <option value="morning">Morning (9 AM - 12 PM)</option>
+                                    <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                                    <option value="evening">Evening (5 PM - 8 PM)</option>
+                                    <option value="flexible">Flexible</option>
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="form-step-content" id="step3" style="display: none;">
                             <h3>Review Your Submission</h3>
-                            <div id="review-content">
+                            <div id="review-content" class="review-section">
                                 <!-- Review content will be populated by JavaScript -->
                             </div>
                         </div>
 
                         <div class="form-buttons">
-                            <button type="button" id="prevBtn" class="cta-button cancel-button" style="display: none;">Previous</button>
-                            <button type="button" id="nextBtn" class="cta-button">Next</button>
-                            <button type="submit" id="submitBtn" class="cta-button" style="display: none;">Submit</button>
-                            <a href="#sell-form-close" class="cta-button cancel-button">Cancel</a>
+                            <button type="button" id="prevBtn" class="btn btn-secondary" style="display: none;">Previous</button>
+                            <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
+                            <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">Submit Request</button>
+                            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Success Pop-up -->
-            <div id="sell-success" class="success-popup">
-                <div class="popup-content">
-                    <h3>🎉 Congratulations!</h3>
-                    <p>Your clothing items have been successfully submitted!</p>
-                    <p>We'll contact you within 24 hours to arrange pickup.</p>
-                    <a href="#sell-success-close" class="cta-button">Close</a>
+            <!-- Success Modal -->
+            <div id="successModal" class="modal-overlay" style="display: none;">
+                <div class="modal-content success-content">
+                    <div class="success-icon">🎉</div>
+                    <h3>Thank You!</h3>
+                    <p>Your clothing submission has been received successfully.</p>
+                    <p><strong>We'll reach out to you soon</strong> to arrange pickup and discuss the next steps.</p>
+                    <div class="success-details">
+                        <p>📧 You'll receive a confirmation email shortly</p>
+                        <p>📞 Our team will contact you within 24 hours</p>
+                        <p>🚚 Free pickup service included</p>
+                    </div>
+                    <button class="btn btn-primary" id="closeSuccessModal">Close</button>
                 </div>
             </div>
         </div>
@@ -282,6 +361,344 @@
     </footer>
 
     <script>
+                // Font Size Control Logic
+        const minFontSize = 14; // px
+        const maxFontSize = 22; // px
+        const defaultFontSize = 16; // px
+
+        function setFontSize(size) {
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
+
+        function getStoredFontSize() {
+            return parseInt(localStorage.getItem('fontSize')) || defaultFontSize;
+        }
+
+        // When page loads, set font size
+        document.addEventListener('DOMContentLoaded', function() {
+            setFontSize(getStoredFontSize());
+
+            document.getElementById('increase-font').onclick = function() {
+                let size = getStoredFontSize() + 2;
+                if (size > maxFontSize) size = maxFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('decrease-font').onclick = function() {
+                let size = getStoredFontSize() - 2;
+                if (size < minFontSize) size = minFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('reset-font').onclick = function() {
+                setFontSize(defaultFontSize);
+            };
+        });
+
+        // Enhanced keyboard shortcuts for philosophy page
+        document.addEventListener('keydown', (e) => {
+            // Shift + R to navigate to philosophy page (works from any page)
+            if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                if (!window.location.pathname.includes('philosophy.html')) {
+                    window.location.href = 'philosophy.html';
+                } else {
+                    // If already on philosophy page, show a notification
+                    showNotification('Already on Philosophy page!', 'info');
+                }
+            }
+            
+            // Ctrl/Cmd + K to focus search (if search exists)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            
+            // Escape key to close any modals or overlays
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        // Sell Form Modal Functionality
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        // DOM Elements
+        const sellButton = document.getElementById('sellButton');
+        const sellModal = document.getElementById('sellModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const sellForm = document.getElementById('sellForm');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const fileInput = document.getElementById('clothing-image');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeImageBtn = document.getElementById('removeImage');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+
+        // Event Listeners
+        sellButton.addEventListener('click', openModal);
+        closeModal.addEventListener('click', closeModalFunc);
+        cancelBtn.addEventListener('click', closeModalFunc);
+        closeSuccessModal.addEventListener('click', closeSuccessModalFunc);
+        nextBtn.addEventListener('click', nextStep);
+        prevBtn.addEventListener('click', prevStep);
+        sellForm.addEventListener('submit', handleSubmit);
+        fileInput.addEventListener('change', handleImageUpload);
+        removeImageBtn.addEventListener('click', removeImage);
+
+        // Close modal when clicking outside
+        sellModal.addEventListener('click', (e) => {
+            if (e.target === sellModal) {
+                closeModalFunc();
+            }
+        });
+
+        // Functions
+        function openModal() {
+            sellModal.style.display = 'flex';
+            setTimeout(() => {
+                sellModal.classList.add('show');
+            }, 10);
+            resetForm();
+        }
+
+        function closeModalFunc() {
+            sellModal.classList.remove('show');
+            setTimeout(() => {
+                sellModal.style.display = 'none';
+            }, 300);
+        }
+
+        function closeSuccessModalFunc() {
+            successModal.classList.remove('show');
+            setTimeout(() => {
+                successModal.style.display = 'none';
+            }, 300);
+        }
+
+        function resetForm() {
+            currentStep = 1;
+            sellForm.reset();
+            updateStepDisplay();
+            hideImagePreview();
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+
+        function updateStepDisplay() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepContent = document.getElementById(`step${i}`);
+                stepContent.style.display = 'none';
+            }
+
+            // Show current step
+            const currentStepContent = document.getElementById(`step${currentStep}`);
+            currentStepContent.style.display = 'block';
+
+            // Update progress indicators
+            const steps = document.querySelectorAll('.form-step');
+            steps.forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            // Update buttons
+            prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-block';
+            nextBtn.style.display = currentStep === totalSteps ? 'none' : 'inline-block';
+            submitBtn.style.display = currentStep === totalSteps ? 'inline-block' : 'none';
+
+            // Populate review content if on step 3
+            if (currentStep === 3) {
+                populateReviewContent();
+            }
+        }
+
+        function validateCurrentStep() {
+            if (currentStep === 1) {
+                const fileInput = document.getElementById('clothing-image');
+                if (!fileInput.files[0]) {
+                    showNotification('Please upload an image of your clothing items', 'warning');
+                    return false;
+                }
+            } else if (currentStep === 2) {
+                const requiredFields = ['contact-name', 'contact-phone', 'contact-email', 'clothing-description', 'pickup-address'];
+                for (const fieldId of requiredFields) {
+                    const field = document.getElementById(fieldId);
+                    if (!field.value.trim()) {
+                        showNotification(`Please fill in the ${field.previousElementSibling.textContent.replace(' *', '')} field`, 'warning');
+                        field.focus();
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showNotification('File size must be less than 5MB', 'warning');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    showImagePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function showImagePreview() {
+            imagePreview.style.display = 'block';
+            fileUploadArea.style.display = 'none';
+        }
+
+        function hideImagePreview() {
+            imagePreview.style.display = 'none';
+            fileUploadArea.style.display = 'block';
+            previewImg.src = '';
+        }
+
+        function removeImage() {
+            fileInput.value = '';
+            hideImagePreview();
+        }
+
+        function populateReviewContent() {
+            const reviewContent = document.getElementById('review-content');
+            const formData = new FormData(sellForm);
+            
+            let reviewHTML = '';
+            
+            // Add image preview if exists
+            if (previewImg.src) {
+                reviewHTML += `
+                    <div class="review-item">
+                        <div class="review-label">Uploaded Image:</div>
+                        <div class="review-value">
+                            <img src="${previewImg.src}" alt="Clothing Preview" style="max-width: 100px; max-height: 100px; border-radius: 5px;">
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Add form fields
+            const fields = [
+                { id: 'contact-name', label: 'Full Name' },
+                { id: 'contact-phone', label: 'Phone Number' },
+                { id: 'contact-email', label: 'Email Address' },
+                { id: 'clothing-description', label: 'Item Description' },
+                { id: 'pickup-address', label: 'Pickup Address' },
+                { id: 'pickup-preferences', label: 'Pickup Preferences' }
+            ];
+
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (element && element.value.trim()) {
+                    reviewHTML += `
+                        <div class="review-item">
+                            <div class="review-label">${field.label}:</div>
+                            <div class="review-value">${element.value}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            reviewContent.innerHTML = reviewHTML;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            showNotification('Submitting your request...', 'info');
+            
+            setTimeout(() => {
+                closeModalFunc();
+                setTimeout(() => {
+                    successModal.style.display = 'flex';
+                    setTimeout(() => {
+                        successModal.classList.add('show');
+                    }, 10);
+                }, 300);
+            }, 1500);
+        }
+
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'info' ? '#007bff' : type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
         // Session Management
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
@@ -485,6 +902,7 @@
                 }
             });
         });
+        
     </script>
 </body>
 </html>

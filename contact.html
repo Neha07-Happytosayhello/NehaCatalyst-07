@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact ReBorn Fashion+</title>
+    <link rel="shortcut icon" href="assets/Favicon.jpg">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         /* Form Validation Styles */
@@ -136,7 +137,83 @@
                 transform: translateX(0);
                 opacity: 1;
             }
+                }
+                .font-size-controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+                }
+
+        .font-control {
+            background: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 4px 10px;
+            font-size: 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
+        .font-control:hover {
+            background: #e9ecef;
+        }
+            .icon {
+            width: 20px;
+            height: 20px;
+            }   
+
+             .facebook-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #1a4de6; /* LinkedIn blue */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    }
+
+    .facebook-link:hover {
+    background-color: hsl(224, 89%, 42%);
+    }
+         .instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #c30273; /* LinkedIn blue */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    }
+
+    .instagram-link:hover {
+    background-color: #a30275;
+    }
+         .x-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #ffffff; /* LinkedIn blue */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    }
+
+    .x-link:hover {
+    background-color: #ffffff;
+    }
+
     </style>
 </head>
 <body>
@@ -153,8 +230,16 @@
                 <a href="contact.html" class="active">Contact</a>
                 <button id="authButton" class="auth-button">Login</button>
             </nav>
-        </div>
-    </header>
+            <div class="font-size-controls" style="float: right; margin-left: 25px;">
+            <button class="font-control" id="decrease-font">A-</button>
+            <button class="font-control" id="reset-font">A</button>
+            <button class="font-control" id="increase-font">A+</button>
+            </div>
+            </div>
+
+
+            </div>
+            </header>
 
     <!-- Contact Section -->
     <section class="contact-section">
@@ -186,14 +271,30 @@
                 </div>
                 <div class="contact-details">
                     <h3>Contact Details</h3>
-                    <p><strong>Address:</strong> 123 Fashion Lane, Delhi, India</p>
+                        <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62299.09410451253!2d77.61201137425297!3d12.912085896625198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae152c02555555%3A0x3a73cfff900d8df1!2sHSR%20Layout%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin"
+                                width="100%"
+                                height="260"
+                                style="border:0; border-radius:12px; margin-bottom:18px;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
+                    <p><strong>Address:</strong> 123  HSR Layout, Bengaluru, India</p>
                     <p><strong>Email:</strong> hello@rebornfashion.com</p>
                     <p><strong>Phone:</strong> +91 90 1234 5678</p>
                     <p><strong>Social:</strong></p>
                     <div class="social-links">
-                        <a href="#">Instagram</a>
-                        <a href="#">Facebook</a>
-                        <a href="#">Twitter</a>
+                        <a href="#" class="instagram-link">
+                            <img src="assets/ins.jpg" alt="Instagram" class="icon"> Instagram
+                        </a>
+                        <a href="#" class="facebook-link">
+                            <img src="assets/face.jpg" alt="Facebook" class="icon"> Facebook
+                        </a>
+                        <a href="#" class="x-link">
+                            <img src="assets/x.jpg" alt="X" class="icon"> X
+                        </a>
                     </div>
                 </div>
             </div>
@@ -219,216 +320,284 @@
     </footer>
 
     <script>
-        // Session Management
+                // Font Size Control Logic
+        const minFontSize = 14; // px
+        const maxFontSize = 22; // px
+        const defaultFontSize = 16; // px
+
+        function setFontSize(size) {
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
+
+        function getStoredFontSize() {
+            return parseInt(localStorage.getItem('fontSize')) || defaultFontSize;
+        }
+
+        // When page loads, set font size
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuthStatus();
-            updateCartCount();
-            setupFormValidation();
+            setFontSize(getStoredFontSize());
+
+            document.getElementById('increase-font').onclick = function() {
+                let size = getStoredFontSize() + 2;
+                if (size > maxFontSize) size = maxFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('decrease-font').onclick = function() {
+                let size = getStoredFontSize() - 2;
+                if (size < minFontSize) size = minFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('reset-font').onclick = function() {
+                setFontSize(defaultFontSize);
+            };
         });
 
-        // Check authentication status
-        function checkAuthStatus() {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-            const authButton = document.getElementById('authButton');
-            
-            if (isLoggedIn === 'true') {
-                const username = sessionStorage.getItem('username') || 'User';
-                authButton.classList.add('logout');
-                authButton.textContent = 'Logout';
-                authButton.onclick = logout;
-            } else {
-                authButton.textContent = 'Login';
-                authButton.classList.remove('logout');
-                authButton.onclick = () => window.location.href = 'login.html';
+        // Enhanced keyboard shortcuts for philosophy page
+document.addEventListener('keydown', (e) => {
+    // Shift + R to navigate to philosophy page (works from any page)
+    if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        if (!window.location.pathname.includes('philosophy.html')) {
+            window.location.href = 'philosophy.html';
+        } else {
+            // If already on philosophy page, show a notification
+            showNotification('Already on Philosophy page!', 'info');
+        }
+    }
+    
+    // Ctrl/Cmd + K to focus search (if search exists)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+        if (searchInput) {
+            searchInput.focus();
+        }
+    }
+    
+    // Escape key to close any modals or overlays
+    if (e.key === 'Escape') {
+        const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+        modals.forEach(modal => {
+            if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                modal.style.display = 'none';
+                modal.classList.remove('show');
             }
-        }
-
-        // Logout function
-        function logout() {
-            sessionStorage.clear();
-            window.location.reload();
-        }
-
-        // Update cart count
-        function updateCartCount() {
-            const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-            const cartCount = document.getElementById('cartCount');
-            
-            if (cart.length > 0) {
-                cartCount.textContent = cart.length;
-                cartCount.style.display = 'inline-flex';
-            } else {
-                cartCount.style.display = 'none';
-            }
-        }
-
-        // Validation functions
-        function validateName(name) {
-            if (name.trim().length < 2) {
-                return 'Name must be at least 2 characters long';
-            }
-            if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
-                return 'Name can only contain letters and spaces';
-            }
-            return '';
-        }
-
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                return 'Please enter a valid email address';
-            }
-            return '';
-        }
-
-        function validateMessage(message) {
-            if (message.trim().length < 10) {
-                return 'Message must be at least 10 characters long';
-            }
-            if (message.trim().length > 500) {
-                return 'Message must be less than 500 characters';
-            }
-            return '';
-        }
-
-        // Real-time validation
-        function setupFormValidation() {
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-            const form = document.getElementById('contactForm');
-
-            // Name validation
-            nameInput.addEventListener('input', function() {
-                const error = validateName(this.value);
-                const errorElement = document.getElementById('nameError');
-                
-                if (error) {
-                    this.classList.add('error');
-                    this.classList.remove('success');
-                    errorElement.textContent = error;
-                    errorElement.style.display = 'block';
-                } else {
-                    this.classList.remove('error');
-                    this.classList.add('success');
-                    errorElement.style.display = 'none';
-                }
-            });
-
-            // Email validation
-            emailInput.addEventListener('input', function() {
-                const error = validateEmail(this.value);
-                const errorElement = document.getElementById('emailError');
-                
-                if (error) {
-                    this.classList.add('error');
-                    this.classList.remove('success');
-                    errorElement.textContent = error;
-                    errorElement.style.display = 'block';
-                } else {
-                    this.classList.remove('error');
-                    this.classList.add('success');
-                    errorElement.style.display = 'none';
-                }
-            });
-
-            // Message validation
-            messageInput.addEventListener('input', function() {
-                const error = validateMessage(this.value);
-                const errorElement = document.getElementById('messageError');
-                
-                if (error) {
-                    this.classList.add('error');
-                    this.classList.remove('success');
-                    errorElement.textContent = error;
-                    errorElement.style.display = 'block';
-                } else {
-                    this.classList.remove('error');
-                    this.classList.add('success');
-                    errorElement.style.display = 'none';
-                }
-            });
-
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = nameInput.value.trim();
-                const email = emailInput.value.trim();
-                const message = messageInput.value.trim();
-                
-                // Validate all fields
-                const nameError = validateName(name);
-                const emailError = validateEmail(email);
-                const messageError = validateMessage(message);
-                
-                if (nameError || emailError || messageError) {
-                    // Show errors for invalid fields
-                    if (nameError) {
-                        nameInput.classList.add('error');
-                        document.getElementById('nameError').textContent = nameError;
-                        document.getElementById('nameError').style.display = 'block';
-                    }
-                    if (emailError) {
-                        emailInput.classList.add('error');
-                        document.getElementById('emailError').textContent = emailError;
-                        document.getElementById('emailError').style.display = 'block';
-                    }
-                    if (messageError) {
-                        messageInput.classList.add('error');
-                        document.getElementById('messageError').textContent = messageError;
-                        document.getElementById('messageError').style.display = 'block';
-                    }
-                    return;
-                }
-                
-                // Disable submit button and show loading state
-                const submitBtn = document.getElementById('submitBtn');
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Sending...';
-                
-                // Simulate form submission
-                setTimeout(() => {
-                    // Show success message
-                    showSuccessAlert();
-                    
-                    // Reset form
-                    form.reset();
-                    nameInput.classList.remove('success', 'error');
-                    emailInput.classList.remove('success', 'error');
-                    messageInput.classList.remove('success', 'error');
-                    
-                    // Re-enable submit button
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                }, 1500);
-            });
-        }
-
-        // Show success alert
-        function showSuccessAlert() {
-            const alert = document.getElementById('successAlert');
-            alert.style.display = 'block';
-            
-            // Hide alert after 5 seconds
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
-        }
-
-        // Add smooth scrolling for all internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
+    }
+});
+// Session Management
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuthStatus();
+    updateCartCount();
+    setupFormValidation();
+});
+
+// Check authentication status
+function checkAuthStatus() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const authButton = document.getElementById('authButton');
+    
+    if (isLoggedIn === 'true') {
+        const username = sessionStorage.getItem('username') || 'User';
+        authButton.classList.add('logout');
+        authButton.textContent = 'Logout';
+        authButton.onclick = logout;
+    } else {
+        authButton.textContent = 'Login';
+        authButton.classList.remove('logout');
+        authButton.onclick = () => window.location.href = 'login.html';
+    }
+}
+
+// Logout function
+function logout() {
+    sessionStorage.clear();
+    window.location.reload();
+}
+
+// Update cart count
+function updateCartCount() {
+    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const cartCount = document.getElementById('cartCount');
+    
+    if (cart.length > 0) {
+        cartCount.textContent = cart.length;
+        cartCount.style.display = 'inline-flex';
+    } else {
+        cartCount.style.display = 'none';
+    }
+}
+
+// Validation functions
+function validateName(name) {
+    if (name.trim().length < 2) {
+        return 'Name must be at least 2 characters long';
+    }
+    if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+        return 'Name can only contain letters and spaces';
+    }
+    return '';
+}
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return 'Please enter a valid email address';
+    }
+    return '';
+}
+
+function validateMessage(message) {
+    if (message.trim().length < 10) {
+        return 'Message must be at least 10 characters long';
+    }
+    if (message.trim().length > 500) {
+        return 'Message must be less than 500 characters';
+    }
+    return '';
+}
+
+// Real-time validation
+function setupFormValidation() {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const form = document.getElementById('contactForm');
+
+    // Name validation
+    nameInput.addEventListener('input', function() {
+        const error = validateName(this.value);
+        const errorElement = document.getElementById('nameError');
+        
+        if (error) {
+            this.classList.add('error');
+            this.classList.remove('success');
+            errorElement.textContent = error;
+            errorElement.style.display = 'block';
+        } else {
+            this.classList.remove('error');
+            this.classList.add('success');
+            errorElement.style.display = 'none';
+        }
+    });
+
+    // Email validation
+    emailInput.addEventListener('input', function() {
+        const error = validateEmail(this.value);
+        const errorElement = document.getElementById('emailError');
+        
+        if (error) {
+            this.classList.add('error');
+            this.classList.remove('success');
+            errorElement.textContent = error;
+            errorElement.style.display = 'block';
+        } else {
+            this.classList.remove('error');
+            this.classList.add('success');
+            errorElement.style.display = 'none';
+        }
+    });
+
+    // Message validation
+    messageInput.addEventListener('input', function() {
+        const error = validateMessage(this.value);
+        const errorElement = document.getElementById('messageError');
+        
+        if (error) {
+            this.classList.add('error');
+            this.classList.remove('success');
+            errorElement.textContent = error;
+            errorElement.style.display = 'block';
+        } else {
+            this.classList.remove('error');
+            this.classList.add('success');
+            errorElement.style.display = 'none';
+        }
+    });
+
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const message = messageInput.value.trim();
+        
+        // Validate all fields
+        const nameError = validateName(name);
+        const emailError = validateEmail(email);
+        const messageError = validateMessage(message);
+        
+        if (nameError || emailError || messageError) {
+            // Show errors for invalid fields
+            if (nameError) {
+                nameInput.classList.add('error');
+                document.getElementById('nameError').textContent = nameError;
+                document.getElementById('nameError').style.display = 'block';
+            }
+            if (emailError) {
+                emailInput.classList.add('error');
+                document.getElementById('emailError').textContent = emailError;
+                document.getElementById('emailError').style.display = 'block';
+            }
+            if (messageError) {
+                messageInput.classList.add('error');
+                document.getElementById('messageError').textContent = messageError;
+                document.getElementById('messageError').style.display = 'block';
+            }
+            return;
+        }
+        
+        // Disable submit button and show loading state
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        
+        // Simulate form submission
+        setTimeout(() => {
+            // Show success message
+            showSuccessAlert();
+            
+            // Reset form
+            form.reset();
+            nameInput.classList.remove('success', 'error');
+            emailInput.classList.remove('success', 'error');
+            messageInput.classList.remove('success', 'error');
+            
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }, 1500);
+    });
+}
+
+// Show success alert
+function showSuccessAlert() {
+    const alert = document.getElementById('successAlert');
+    alert.style.display = 'block';
+    
+    // Hide alert after 5 seconds
+    setTimeout(() => {
+        alert.style.display = 'none';
+    }, 5000);
+}
+
+// Add smooth scrolling for all internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
     </script>
 </body>
 </html>

@@ -132,8 +132,42 @@
     </div>
 
     <script>
+        // Enhanced keyboard shortcuts for philosophy page
+        document.addEventListener('keydown', (e) => {
+            // Shift + R to navigate to philosophy page (works from any page)
+            if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                if (!window.location.pathname.includes('philosophy.html')) {
+                    window.location.href = 'philosophy.html';
+                } else {
+                    // If already on philosophy page, show a notification
+                    showNotification('Already on Philosophy page!', 'info');
+                }
+            }
+            
+            // Ctrl/Cmd + K to focus search (if search exists)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            
+            // Escape key to close any modals or overlays
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+        });
         // Check if user is already logged in
         document.addEventListener('DOMContentLoaded', function() {
+            initSizePreference();
             const isLoggedIn = sessionStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
                 window.location.href = 'index.html';
@@ -241,6 +275,60 @@
                 }
             }, 1000);
         });
+        function setHeaderSize(size) {
+            const header = document.getElementById('mainHeader');
+            const sizeButtons = document.querySelectorAll('.size-button');
+            
+            // Remove all size classes
+            header.classList.remove('size-small', 'size-medium', 'size-large');
+            
+            // Add new size class
+            header.classList.add(`size-${size}`);
+            
+            // Update active button
+            sizeButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-size') === size) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'info' ? '#007bff' : type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html> 

@@ -1,0 +1,787 @@
+<!-- philosophy.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy - ReBorn Fashion+</title>
+    <link rel="shortcut icon" href="assets/Favicon.jpg">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Philosophy Page Enhancements */
+        .philosophy-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .philosophy-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .philosophy-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .philosophy-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .philosophy-hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .philosophy-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .philosophy-section:nth-child(even) {
+            background: white;
+        }
+        
+        .philosophy-section .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .philosophy-section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .philosophy-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .philosophy-section h3 {
+            font-size: 1.8rem;
+            color: #007bff;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+        
+        .philosophy-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .philosophy-section ul,
+        .philosophy-section ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .philosophy-section li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .philosophy-section strong {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* Auth Button */
+        .auth-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+        
+        .auth-button:hover {
+            background: #0056b3;
+        }
+        
+        .auth-button.logout {
+            background: #dc3545;
+        }
+        
+        .auth-button.logout:hover {
+            background: #c82333;
+        }
+        
+        /* Cart Badge */
+        .cart-count {
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        /* Enhanced Animations */
+        .philosophy-section {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .philosophy-section:nth-child(2) { animation-delay: 0.1s; }
+        .philosophy-section:nth-child(3) { animation-delay: 0.2s; }
+        .philosophy-section:nth-child(4) { animation-delay: 0.3s; }
+        .philosophy-section:nth-child(5) { animation-delay: 0.4s; }
+        .philosophy-section:nth-child(6) { animation-delay: 0.5s; }
+        .philosophy-section:nth-child(7) { animation-delay: 0.6s; }
+        .philosophy-section:nth-child(8) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .philosophy-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .philosophy-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .philosophy-section h2 {
+                font-size: 2rem;
+            }
+            
+            .philosophy-section h3 {
+                font-size: 1.5rem;
+            }
+            
+            .philosophy-section p,
+            .philosophy-section li {
+                font-size: 1rem;
+            }
+                }
+                .font-size-controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .font-control {
+            background: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 4px 10px;
+            font-size: 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .font-control:hover {
+            background: #e9ecef;
+        }
+        #core-philosophy .container::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 400px;
+            background: url('assets/models.jpg') center/cover no-repeat;
+            border-radius: 12px;
+            margin-bottom: 5px;
+        }
+        #environmental-rationale .container::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 400px;
+            background: url('assets/donation.jpg') center/cover no-repeat;
+            border-radius: 12px;
+            margin-bottom: 5px;
+        }
+
+        .three-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px; /* space between images */
+        }
+
+        .three-photo-grid img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        }
+
+        .three-photo-grid img:hover {
+        transform: scale(1.05);
+        }
+
+        /* Responsive: stack images on small screens */
+        @media (max-width: 768px) {
+        .three-photo-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        }
+        #design-philosophy .container::after {
+            content: "";
+            display: block;
+            width: auto;
+            height: 200px;
+            background: url('assets/color.jpg') center/cover no-repeat;
+            border-radius: 12px;
+            margin-bottom: 5px;
+        }
+        #social-impact .container::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 400px;
+            background: url('assets/circular.jpg') center/cover no-repeat;
+            border-radius: 12px;
+            margin-bottom: 5px;
+        }
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .team-member h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #ff8000;
+        }
+        
+        .team-member p {
+            font-size: 1rem;
+            color:black;
+        }
+         .team-member {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .team-member h4 {
+    color: orange;
+    margin-bottom: 10px;
+    }
+
+    .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 3px solid white;
+    }
+
+    .team-member p {
+    margin: 5px 0;
+    }
+     .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #0077b5; /* LinkedIn blue */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    }
+
+    .linkedin-link:hover {
+    background-color: #005a87;
+    }
+
+    .linkedin-icon {
+    width: 18px;
+    height: 18px;
+    }           
+    .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+    }
+        
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">ReBorn Fashion+</div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="shop.html" class="nav-link">Shop</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="reborn-biz.html" class="nav-link">Biz</a>
+                <a href="philosophy.html" class="nav-link active">Philosophy</a>
+                <!-- <span class="cart-count">Cart: <span id="cart-count">0</span></span> -->
+                <span class="user-greeting" id="user-greeting"></span>
+                <button class="logout-button" id="logout-button" style="display: none;">Logout</button>
+            </nav>
+            <div class="font-size-controls" style="float: right; margin-left: 25px;">
+                <button class="font-control" id="decrease-font">A-</button>
+                <button class="font-control" id="reset-font">A</button>
+                <button class="font-control" id="increase-font">A+</button>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <section class="philosophy-hero">
+            <div class="philosophy-hero-content">
+                <h1>Our Philosophy</h1>
+                <p>Discover the core values and vision that drive ReBorn Fashion's mission to transform the fashion industry through circular economy principles.</p>
+            </div>
+        </section>
+
+        <section id="core-philosophy" class="philosophy-section">
+            <div class="container">
+                <h2>Core Brand Philosophy</h2>
+                <h3>The Circular Vision</h3>
+                <p>ReBorn Fashion emerged from a fundamental belief that fashion doesn't have to be disposable. In a world where the average garment is worn only 7-10 times before disposal, we envision a future where every piece of clothing has multiple lives, each more beautiful than the last.</p>
+                <h3>Why "ReBorn"?</h3>
+                <p>The name "ReBorn" encapsulates our entire philosophy - it's not just recycling, it's resurrection. Every discarded garment that enters our ecosystem is given a second chance at life, transformed through creativity and craftsmanship into something new, relevant, and desirable.</p>
+            </div>
+        </section>
+
+        <section id="environmental-rationale" class="philosophy-section">
+            <div class="container">
+                <h2>Environmental Rationale</h2>
+                <h3>The Textile Waste Crisis</h3>
+                <ul>
+                    <li>The fashion industry produces 92 million tons of textile waste annually</li>
+                    <li>Only 15% of clothing is recycled globally</li>
+                    <li>It takes 2,700 liters of water to make a single cotton t-shirt</li>
+                    <li>Fashion is responsible for 8-10% of global carbon emissions</li>
+                </ul>
+                <h3>Our Solution Impact</h3>
+                <p>By intercepting garments before they reach landfills, ReBorn Fashion:</p>
+                <ul>
+                    <li>Reduces textile waste by giving clothes extended lifecycles</li>
+                    <li>Minimizes water consumption by avoiding new fabric production</li>
+                    <li>Decreases carbon footprint through local redesign processes</li>
+                    <li>Promotes conscious consumption patterns</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="business-model" class="philosophy-section">
+            <div class="container">
+                <h2>Business Model Philosophy</h2>
+                <h3>The Three-Pillar Approach</h3>
+                <ol>
+                    <li><strong>Individual Consumer Engagement</strong>: We believe sustainability starts with individuals. By making it easy for people to participate in circular fashion through our collection service, we democratize environmental responsibility.</li>
+                    <li><strong>B2B Corporate Responsibility</strong>: Companies are increasingly seeking sustainable solutions. Our bulk customization services allow businesses to align their merchandise and uniforms with their sustainability goals while maintaining professional aesthetics.</li>
+                    <li><strong>Accessible Luxury (Rental Closet)</strong>: High-quality, designer pieces shouldn't be accessible only to the wealthy. Our rental service makes premium sustainable fashion available for special occasions, reducing the need for "fast fashion" purchases.</li>
+                </ol>
+                <section id="three-photos" class="philosophy-section">
+                    <div class="container">
+                        <div class="three-photo-grid">
+                        <img src="assets/index.jpg" alt="Individual Consumer Engagement" />
+                        <img src="assets/img100.jpg" alt="B2B Corporate Responsibility" />
+                        <img src="assets/rent.jpg" alt="Accessible Luxury (Rental Closet)" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section id="design-philosophy" class="philosophy-section">
+            <div class="container">
+                <h2>Design Philosophy</h2>
+                <h3>User-Centric Approach</h3>
+                <p>Every aspect of our website and service is designed with the user's journey in mind:</p>
+                <ul>
+                    <li><strong>Simplicity</strong>: The process from drop-off to purchase should be intuitive</li>
+                    <li><strong>Transparency</strong>: Users can track their garment's transformation</li>
+                    <li><strong>Accessibility</strong>: The website works for all users, regardless of technical ability</li>
+                    <li><strong>Trust</strong>: Clear processes and fair pricing build customer confidence</li>
+                </ul>
+                <h3>Visual Identity Rationale</h3>
+                <p>Our visual identity reflects our values:</p>
+                <ul>
+                    <li><strong>Color Palette</strong>: Earthy greens and blues represent nature and renewal</li>
+                    <li><strong>Typography</strong>: Clean, modern fonts suggest innovation within tradition</li>
+                    <li><strong>Imagery</strong>: Before/after transformations showcase our creative capabilities</li>
+                    <li><strong>Layout</strong>: Circular design elements reinforce our circular economy message</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="technical-philosophy" class="philosophy-section">
+            <div class="container">
+                <h2>Technical Implementation Philosophy</h2>
+                <h3>Progressive Enhancement</h3>
+                <p>Our website is built with a mobile-first, accessible-first approach:</p>
+                <ul>
+                    <li><strong>HTML Foundation</strong>: Semantic markup ensures accessibility and SEO</li>
+                    <li><strong>CSS Styling</strong>: Progressive enhancement for visual appeal</li>
+                    <li><strong>JavaScript Interactivity</strong>: Enhances user experience without breaking core functionality</li>
+                </ul>
+                <h3>Sustainability in Code</h3>
+                <p>Even our development practices reflect our values:</p>
+                <ul>
+                    <li>Optimized images and code reduce server energy consumption</li>
+                    <li>Efficient JavaScript minimizes processing power requirements</li>
+                    <li>Clean, maintainable code reduces long-term resource waste</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="social-impact" class="philosophy-section">
+            <div class="container">
+                <h2>Social Impact Philosophy</h2>
+                <h3>Community Building</h3>
+                <p>ReBorn Fashion isn't just a business - it's a movement. We're building a community of:</p>
+                <ul>
+                    <li>Conscious Consumers who choose quality over quantity</li>
+                    <li>Creative Professionals who see waste as raw material for innovation</li>
+                    <li>Environmental Advocates who vote with their wallets</li>
+                </ul>
+                <h3>Educational Mission</h3>
+                <p>Through our "How It Works" section and blog content, we aim to:</p>
+                <ul>
+                    <li>Educate consumers about fashion's environmental impact</li>
+                    <li>Inspire creativity in repurposing and upcycling</li>
+                    <li>Share knowledge about sustainable living practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="innovation-philosophy" class="philosophy-section">
+            <div class="container">
+                <h2>Innovation Philosophy</h2>
+                <h3>Tradition Meets Technology</h3>
+                <p>We respect traditional craftsmanship while embracing modern efficiency:</p>
+                <ul>
+                    <li><strong>Artisan Skills</strong>: Our designers bring decades of experience in garment construction</li>
+                    <li><strong>Digital Processes</strong>: Online platforms streamline collection and delivery</li>
+                    <li><strong>Data-Driven Decisions</strong>: Analytics help us understand customer preferences and optimize operations</li>
+                </ul>
+                <h3>Continuous Evolution</h3>
+                <p>ReBorn Fashion is designed to adapt and grow:</p>
+                <ul>
+                    <li><strong>Feedback Integration</strong>: Customer input shapes our service improvements</li>
+                    <li><strong>Trend Awareness</strong>: We stay current while maintaining timeless appeal</li>
+                    <li><strong>Technology Adoption</strong>: New tools and platforms are evaluated for sustainability benefits</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="long-term-vision" class="philosophy-section">
+            <div class="container">
+                <h2>Long-term Vision</h2>
+                <h3>Scaling Impact</h3>
+                <p>Our ultimate goal is to prove that circular fashion isn't just viable - it's profitable and scalable. Success metrics include:</p>
+                <ul>
+                    <li>Number of garments diverted from landfills</li>
+                    <li>Reduction in customer's overall fashion footprint</li>
+                    <li>Growth in B2B partnerships with sustainability-focused companies</li>
+                    <li>Community engagement and educational outreach</li>
+                </ul>
+                <h3>Industry Transformation</h3>
+                <p>ReBorn Fashion aims to be a catalyst for broader industry change by:</p>
+                <ul>
+                    <li>Demonstrating consumer demand for circular fashion</li>
+                    <li>Providing a replicable business model for other entrepreneurs</li>
+                    <li>Partnering with larger brands to integrate circular practices</li>
+                    <li>Influencing policy through proven sustainable alternatives</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="personal-reflection" class="philosophy-section">
+            <div class="container">
+                <h2>SQUAD</h2>
+                <div class="team-grid">
+                        <div class="team-member">
+                            <h4>Neha Kumari</h4>
+                             <img src="assets/Neha.jpg" alt="Neha Kumari" class="profile-pic">
+                            <p>Founder & CEO</p>
+                            <p>Environmental activist with 10+ years in sustainable fashion</p>
+                            <a href="https://www.linkedin.com/in/neha-kumari-39930a287?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
+                        </div>
+                        <div class="team-member">
+                            <h4>Naincy Kumari</h4>
+                            <img src="assets/Nain.jpg" alt="Neha Kumari" class="profile-pic">
+                            <p>Creative Director</p>
+                            <p>Award-winning designer specializing in upcycled fashion</p>
+                             <a href="https://www.linkedin.com/in/naincy-k-586a0a16b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
+                        </div>
+                        <div class="team-member">
+                            <h4>Dr.Vinaya Sathyanarayana</h4>
+                            <img src="assets/DR.jpg" alt="Neha Kumari" class="profile-pic">
+                            <p>Operations Manager</p>
+                            <p>Expert in circular economy and supply chain management</p>
+                             <a href="https://www.linkedin.com/in/vinaya?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                 <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
+                        </div>
+                        <div class="team-member">
+                            <h4>Anirban Panda</h4>
+                            <img src="assets/Anir.jpg" alt="Neha Kumari" class="profile-pic">
+                            <p>Technology Lead</p>
+                            <p>Building digital solutions for sustainable fashion</p>
+                             <a href="https://www.linkedin.com/in/anirban-panda-33045a146?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="linkedin-link">
+                                <img src="assets/in.jpg" alt="LinkedIn" class="linkedin-icon"> LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                <h2>Personal Reflection</h2>
+                <p>Creating ReBorn Fashion represents my belief that business can be a force for good. This project combines my passion for:</p>
+                <ul>
+                    <li>Environmental stewardship through practical solutions</li>
+                    <li>Creative problem-solving using technology and design</li>
+                    <li>Social entrepreneurship that creates value for all stakeholders</li>
+                    <li>Systems thinking that addresses root causes rather than symptoms</li>
+                </ul>
+                <p>The website serves as both a functional business platform and a proof of concept that sustainable practices can be seamlessly integrated into modern commerce. Every line of code, every design choice, and every user interaction is an opportunity to reinforce our values and move closer to our vision of a circular fashion future.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 ReBorn Fashion+. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top" style="display: none;">↑</button>
+
+    <script>
+                // Font Size Control Logic
+        const minFontSize = 14; // px
+        const maxFontSize = 22; // px
+        const defaultFontSize = 16; // px
+
+        function setFontSize(size) {
+            document.documentElement.style.fontSize = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
+
+        function getStoredFontSize() {
+            return parseInt(localStorage.getItem('fontSize')) || defaultFontSize;
+        }
+
+        // When page loads, set font size
+        document.addEventListener('DOMContentLoaded', function() {
+            setFontSize(getStoredFontSize());
+
+            document.getElementById('increase-font').onclick = function() {
+                let size = getStoredFontSize() + 2;
+                if (size > maxFontSize) size = maxFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('decrease-font').onclick = function() {
+                let size = getStoredFontSize() - 2;
+                if (size < minFontSize) size = minFontSize;
+                setFontSize(size);
+            };
+
+            document.getElementById('reset-font').onclick = function() {
+                setFontSize(defaultFontSize);
+            };
+        });
+
+        // Enhanced keyboard shortcuts for philosophy page
+        document.addEventListener('keydown', (e) => {
+            // Shift + R to navigate to philosophy page (works from any page)
+            if (e.shiftKey && e.key.toLowerCase() === 'r') {
+                e.preventDefault();
+                if (!window.location.pathname.includes('philosophy.html')) {
+                    window.location.href = 'philosophy.html';
+                } else {
+                    // If already on philosophy page, show a notification
+                    showNotification('Already on Philosophy page!', 'info');
+                }
+            }
+            
+            // Ctrl/Cmd + K to focus search (if search exists)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[type="search"], input[placeholder*="search"], #searchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+            
+            // Escape key to close any modals or overlays
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal-overlay, .quick-view-container');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block' || modal.classList.contains('show')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'info' ? '#007bff' : type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10000;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize cart count from session storage
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = cart.length;
+            }
+        }
+
+        // Initialize user greeting
+        function updateUserGreeting() {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            const greetingElement = document.getElementById('user-greeting');
+            const logoutButton = document.getElementById('logout-button');
+            
+            if (user && greetingElement) {
+                greetingElement.textContent = `Welcome, ${user.name}!`;
+                greetingElement.style.display = 'inline';
+                if (logoutButton) logoutButton.style.display = 'inline';
+            } else {
+                if (greetingElement) greetingElement.style.display = 'none';
+                if (logoutButton) logoutButton.style.display = 'none';
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logout-button')?.addEventListener('click', () => {
+            sessionStorage.removeItem('user');
+            updateUserGreeting();
+            showNotification('Logged out successfully', 'success');
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            updateUserGreeting();
+        });
+    </script>
+</body>
+</html>
