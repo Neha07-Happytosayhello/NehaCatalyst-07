@@ -1,6 +1,6 @@
 # NehaCatalyst-07
 Assignmemt Of Web Development-Project Proposal:-ReBorn Fashion - a circular fashion 
-brand  
+brand  .
 The proposal involves the development of a user friendly, accessible  and 
 interactive website using HTML, CSS, and JavaScript to propose idea of a 
 startup  creating a circular economy fashion brand- ReBorn Fashion .It 
